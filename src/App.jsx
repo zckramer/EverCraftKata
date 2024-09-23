@@ -15,13 +15,15 @@ function App() {
     setWelcomeMessage(response)
   }
 
-  // useEffect(() => {
-  //   async function initMessage() {
-  //     const initResponse = await httpGet()
-  //     setWelcomeMessage(initResponse)
-  //   }
-  //   initMessage();
-  // }, [])
+  useEffect(() => {
+    async function initMessage() {
+      let params = new URLSearchParams(document.location.search);
+      const characterName = params.get("characterName");
+      const initResponse = await httpGet(characterName)
+      console.log(initResponse);
+    }
+    initMessage();
+  }, [])
 
   return (
     <>
