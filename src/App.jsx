@@ -1,10 +1,14 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { httpGet } from './service/http'
+import { useContext } from 'react'
+import Character from './components/Character'
 
 function App() {
-  const [welcomeMessage, setWelcomeMessage] = useState('')
+  const [characterData, setCharacterData] = useState('')
+  const [isCharacterLoaded, setIsCharacterLoaded] = useState(false);
   const [inputText, setInputText] = useState('')
+  // useContext(CharacterContext);
 
   function handleInputText(newText) {
     setInputText(newText)
@@ -16,20 +20,25 @@ function App() {
   }
 
   useEffect(() => {
-    async function initMessage() {
-      let params = new URLSearchParams(document.location.search);
-      const characterName = params.get("characterName");
-      const initResponse = await httpGet(characterName)
-      console.log(initResponse);
+    if(!isCharacterLoaded) {
+      async function initMessage() {
+        let params = new URLSearchParams(document.location.search);
+        const characterName = params.get("characterName");
+        const initResponse = await httpGet(characterName)
+        setCharacterData(initResponse);
+        setIsCharacterLoaded(true);
+        console.log(initResponse);
+      }
+      initMessage();
     }
-    initMessage();
-  }, [])
+  }, [characterData, isCharacterLoaded])
 
   return (
     <>
       <p>
         Welcome to Evercraft!
       </p>
+      {characterData && <Character characterData={characterData}></Character>}
     </>
   )
 }
