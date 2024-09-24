@@ -1,23 +1,23 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { httpGet } from './service/http'
-import { useContext } from 'react'
+// import { useContext } from 'react'
 import Character from './components/Character'
 
 function App() {
   const [characterData, setCharacterData] = useState('')
   const [isCharacterLoaded, setIsCharacterLoaded] = useState(false);
-  const [inputText, setInputText] = useState('')
+  // const [inputText, setInputText] = useState('')
   // useContext(CharacterContext);
 
-  function handleInputText(newText) {
-    setInputText(newText)
-  }
+  // function handleInputText(newText) {
+  //   setInputText(newText)
+  // }
 
-  async function handleSubmit() {
-    const response = await httpGet(inputText)
-    setWelcomeMessage(response)
-  }
+  // async function handleSubmit() {
+  //   const response = await httpGet(inputText)
+  //   setWelcomeMessage(response)
+  // }
 
   useEffect(() => {
     if(!isCharacterLoaded) {
@@ -27,7 +27,6 @@ function App() {
         const initResponse = await httpGet(characterName)
         setCharacterData(initResponse);
         setIsCharacterLoaded(true);
-        console.log(initResponse);
       }
       initMessage();
     }
@@ -35,9 +34,9 @@ function App() {
 
   return (
     <>
-      <p>
+      <h1>
         Welcome to Evercraft!
-      </p>
+      </h1>
       {characterData && <Character characterData={characterData}></Character>}
     </>
   )
