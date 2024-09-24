@@ -1,45 +1,19 @@
-import './App.css'
-import { useEffect, useState } from 'react'
-import { httpGet } from './service/http'
-// import { useContext } from 'react'
-import Character from './components/Character'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Battle from './pages/Battle/Battle';
+import CharacterPage from './pages/CharacterPage/CharacterPage';
+import Home from './pages/HomePage/HomePage';
 
 function App() {
-  const [characterData, setCharacterData] = useState('')
-  const [isCharacterLoaded, setIsCharacterLoaded] = useState(false);
-  // const [inputText, setInputText] = useState('')
-  // useContext(CharacterContext);
-
-  // function handleInputText(newText) {
-  //   setInputText(newText)
-  // }
-
-  // async function handleSubmit() {
-  //   const response = await httpGet(inputText)
-  //   setWelcomeMessage(response)
-  // }
-
-  useEffect(() => {
-    if(!isCharacterLoaded) {
-      async function initMessage() {
-        let params = new URLSearchParams(document.location.search);
-        const characterName = params.get("characterName");
-        const initResponse = await httpGet(characterName)
-        setCharacterData(initResponse);
-        setIsCharacterLoaded(true);
-      }
-      initMessage();
-    }
-  }, [characterData, isCharacterLoaded])
-
   return (
-    <>
-      <h1>
-        Welcome to Evercraft!
-      </h1>
-      {characterData && <Character characterData={characterData}></Character>}
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/battle' element={<Battle />} />
+        <Route path='/character' element={<CharacterPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

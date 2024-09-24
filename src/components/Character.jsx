@@ -12,13 +12,13 @@ function Character( {characterData} ) {
     `;
 
     const DashedBorder = styled.div`
-        border: 2px dashed darkgreen;
+        border: ${props => props.$player ? "2px dashed darkgreen" : "2px dashed white"};
         border-radius: 10px;
     `;
 
     const CharacterName = styled.h1`
         font-family: cursive;
-        color: darkgreen;
+        color: ${props => props.$player ? "darkgreen" : "white"};
     `;
 
     const CharacterAttributes = styled.div`
@@ -34,7 +34,7 @@ function Character( {characterData} ) {
     `;
 
     const HPColor = styled.span`
-        color: green;
+        color: ${props => props.$player ? "green" : "white"};
         font-weight: bold;
     `;
 
@@ -44,22 +44,25 @@ function Character( {characterData} ) {
     const [armorClass, setArmorClass] = useState('');
     const [isAlive, setIsAlive] = useState(true);
 
+    const [isPlayer, setIsPlayer] = useState(true);
+
     useEffect(() => {
         setCharacterName(characterData.name);
         setAlignment(characterData.alignment);
         setHitPoints(characterData.hitPoints);
         setArmorClass(characterData.armorClass);
         setIsAlive(characterData.isAlive);
+        setIsPlayer(true);
     }, [characterData])
 
     return(
         <>
-            <CharacterWrapper $player>
-                <DashedBorder>
-                    <CharacterName>{characterName}</CharacterName>
+            <CharacterWrapper $player={isPlayer}>
+                <DashedBorder $player={isPlayer}>
+                    <CharacterName $player={isPlayer}>{characterName}</CharacterName>
                     <CharacterAttributes>
                         <Attribute><strong>Alignment:</strong> {alignment}</Attribute>
-                        <Attribute><strong>Hit Points:</strong> <HPColor>{hitPoints}</HPColor></Attribute>
+                        <Attribute><strong>Hit Points:</strong> <HPColor $player={isPlayer}>{hitPoints}</HPColor></Attribute>
                         <Attribute><strong>Armor Class:</strong> {armorClass}</Attribute>
                         <Attribute><strong>Is {characterName} alive?</strong> {isAlive ? "Yes!" : "No..."} </Attribute>
                     </CharacterAttributes>
