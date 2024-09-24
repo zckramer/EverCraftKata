@@ -1,34 +1,34 @@
 import { useEffect, useState } from 'react'
 import { httpGet } from '../../service/http'
-// import { useContext } from 'react'
 import Character from '../../components/Character'
 
-function CharacterPage({ characterData }) {
+function CharacterPage() {
 
-    const [characterInfo, setCharacterInfo] = useState('')
+    const [characterData, setCharacterData] = useState('')
     const [isCharacterLoaded, setIsCharacterLoaded] = useState(false);
 
     useEffect(() => {
         if(!isCharacterLoaded) {
             async function initMessage() {
             let params = new URLSearchParams(document.location.search);
+            console.log(params);
             const characterName = params.get("characterName");
             const initResponse = await httpGet(characterName)
-            setCharacterInfo(initResponse);
+            setCharacterData(initResponse);
             setIsCharacterLoaded(true);
             }
             initMessage();
         }
-        }, [characterData, isCharacterLoaded])
+    }, [characterData, isCharacterLoaded])
     
-        return (
-        <>
-            <h1>
-            Welcome to Evercraft!
-            </h1>
-            {characterData && <Character characterData={characterInfo}></Character>}
-        </>
-        )
+    return (
+    <>
+        <h1>
+        Welcome to Evercraft!
+        </h1>
+        {characterData && <Character characterData={characterData}></Character>}
+    </>
+    )
 }
 
 export default CharacterPage;
