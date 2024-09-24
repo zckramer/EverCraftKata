@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-function Character( {characterData} ) {
+function Character( {characterData, opponent}  ) {
 
     const CharacterWrapper = styled.div`
-        border: ${props => props.$player ? "2px solid lightyellow" : "2px solid red"} ;
+        border: ${props => props.$opponent ? "2px solid red" : "2px solid lightyellow"} ;
         border-radius: 10px;
         width: 500px;
-        background-color: ${props => props.$player ? "#ffffe0" : "red"};
+        background-color: ${props => props.$opponent ? "red" : "#ffffe0"};
         padding: 20px;
     `;
 
     const DashedBorder = styled.div`
-        border: ${props => props.$player ? "2px dashed darkgreen" : "2px dashed white"};
+        border: ${props => props.$opponent ? "2px dashed white" : "2px dashed darkgreen"};
         border-radius: 10px;
     `;
 
     const CharacterName = styled.h1`
         font-family: cursive;
-        color: ${props => props.$player ? "darkgreen" : "white"};
+        color: ${props => props.$opponent ? "white" : "darkgreen"};
     `;
 
     const CharacterAttributes = styled.div`
@@ -34,7 +34,7 @@ function Character( {characterData} ) {
     `;
 
     const HPColor = styled.span`
-        color: ${props => props.$player ? "green" : "white"};
+        color: ${props => props.$opponent ? "white" : "green"};
         font-weight: bold;
     `;
 
@@ -44,7 +44,7 @@ function Character( {characterData} ) {
     const [armorClass, setArmorClass] = useState('');
     const [isAlive, setIsAlive] = useState(true);
 
-    const [isPlayer, setIsPlayer] = useState(true);
+    const [isOpponent, setisOpponent] = useState(true);
 
     useEffect(() => {
         setCharacterName(characterData.name);
@@ -52,17 +52,17 @@ function Character( {characterData} ) {
         setHitPoints(characterData.hitPoints);
         setArmorClass(characterData.armorClass);
         setIsAlive(characterData.isAlive);
-        setIsPlayer(true);
-    }, [characterData])
+        setisOpponent(opponent);
+    }, [characterData, opponent])
 
     return(
         <>
-            <CharacterWrapper $player={isPlayer}>
-                <DashedBorder $player={isPlayer}>
-                    <CharacterName $player={isPlayer}>{characterName}</CharacterName>
+            <CharacterWrapper $opponent={opponent}>
+                <DashedBorder $opponent={isOpponent}>
+                    <CharacterName $opponent={isOpponent}>{characterName}</CharacterName>
                     <CharacterAttributes>
                         <Attribute><strong>Alignment:</strong> {alignment}</Attribute>
-                        <Attribute><strong>Hit Points:</strong> <HPColor $player={isPlayer}>{hitPoints}</HPColor></Attribute>
+                        <Attribute><strong>Hit Points:</strong> <HPColor $opponent={isOpponent}>{hitPoints}</HPColor></Attribute>
                         <Attribute><strong>Armor Class:</strong> {armorClass}</Attribute>
                         <Attribute><strong>Is {characterName} alive?</strong> {isAlive ? "Yes!" : "No..."} </Attribute>
                     </CharacterAttributes>

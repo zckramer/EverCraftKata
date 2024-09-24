@@ -11,3 +11,13 @@ export async function httpGet(personName) {
         console.error(error)
     }
 }
+
+export async function httpGetBattle() {
+    const constructedURL = `${BASE_URL + "battle"}`
+    try {
+        const response = await axios.get(constructedURL);
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
+}
