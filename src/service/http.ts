@@ -13,7 +13,6 @@ export async function httpGet(personName: string): Promise<string> {
     } catch (error) {
         console.error(error);
     }
-    console.log('ZACK! ', "we're in the httpGet function...");
     console.log('ZACK! ', "this is the response data...", playerName);
     return playerName;
 };
