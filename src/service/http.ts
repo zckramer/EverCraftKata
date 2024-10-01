@@ -27,7 +27,7 @@ export async function httpGetBattle() {
     }
 }
 
-export async function getCharacterSheet(characterName:string): Promise<CharacterSheetType> {
+export async function getCharacterSheetByName(characterName:string): Promise<CharacterSheetType> {
     const characterQuery = `${characterName ? (BASE_URL + "character?characterName=" + characterName) : BASE_URL}`
     let characterSheetResponse: CharacterSheetType = characterPlaceholder;
     try {
@@ -37,4 +37,18 @@ export async function getCharacterSheet(characterName:string): Promise<Character
         console.error(error)
     }
     return characterSheetResponse;
+}
+
+//REFACTOR: These functions are basically the same. FIX IT DUMMY.
+
+export async function getCharacterSheetById(characterId:number): Promise<CharacterSheetType> {
+    const characterQuery = `${characterId ? (BASE_URL + "getCharacter?characterId=" + characterId) : BASE_URL}`
+    let characterSheetResponse: CharacterSheetType = characterPlaceholder;
+    try {
+        const response = await axios.get(characterQuery);
+        characterSheetResponse = response.data
+    } catch (error) {
+        console.error(error)
+    }
+    return characterSheetResponse;    
 }

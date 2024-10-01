@@ -38,12 +38,13 @@ const HPColor = styled.span<{ $opponent?: boolean; }>`
 `;
 
 const Character: React.FC<CharacterSheetType> = (
-    {name, armorClass, hitPoints, alignment, isAlive, opponent}
+    {id, name, armorClass, hitPoints, alignment, isAlive = true, opponent}
 ) => {
 
 
     const [character, setCharacter] = useState<CharacterSheetType>(
         {
+            id,
             name,
             armorClass,
             alignment,
