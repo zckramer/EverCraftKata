@@ -27,6 +27,18 @@ export async function httpGetBattle() {
     }
 }
 
+export async function getAllCharacters(): Promise<CharacterSheetType[]> {
+    const characterQuery = BASE_URL + "getAllCharacters"
+    let characterSheetResponse: CharacterSheetType[] = [];
+    try {
+        const response = await axios.get(characterQuery);
+        characterSheetResponse = response.data
+    } catch (error) {
+        console.error(error)
+    }
+    return characterSheetResponse;
+}
+
 export async function getCharacterSheetByName(characterName:string): Promise<CharacterSheetType> {
     const characterQuery = `${characterName ? (BASE_URL + "character?characterName=" + characterName) : BASE_URL}`
     let characterSheetResponse: CharacterSheetType = characterPlaceholder;

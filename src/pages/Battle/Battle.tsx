@@ -11,7 +11,7 @@ const BattleField = styled.div`
     justify-content: space-evenly;
 `;
 
-function Battle() {
+const Battle = (playerCharacter: CharacterSheetType) => {
     
 
     const [player, setPlayer] = useState<CharacterSheetType>(characterPlaceholder);
@@ -21,21 +21,15 @@ function Battle() {
     useEffect(():void => {
         if(!isBattleLoaded) {
             async function battleData() {
-                const getPlayerCharacter = await getCharacterSheetById(2);
-                const getOpponentCharacter = await getCharacterSheetById(3);
-                setPlayer(getPlayerCharacter);
-                setOpponent(getOpponentCharacter);
+                // const getPlayerCharacter = await getCharacterSheetById(2);
+                // const getOpponentCharacter = await getCharacterSheetById(3);
+                setPlayer(playerCharacter);
+                setOpponent(playerCharacter);
                 setIsBattleLoaded(true);
             }
             battleData();
         }
     }, [isBattleLoaded]);
-
-    // Log battleCharacters after it updates
-    // useEffect(() => {
-    //     console.log("Player: ", player);
-    //     console.log("Opponent: ", opponent);
-    // }, [player, opponent]);
 
     return(
         <>
