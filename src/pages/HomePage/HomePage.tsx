@@ -19,6 +19,7 @@ const Home = () => {
     function handleCharacterChoice(character: CharacterSheetType) {
         setSelectedCharacter(character);
         
+        
     }
 
     function startBattle() {
