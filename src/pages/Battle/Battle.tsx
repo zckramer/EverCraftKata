@@ -3,7 +3,7 @@ import { characterPlaceholder } from '../../placeholders/characterPlaceholder';
 import Character from '../../components/Character';
 import styled from "styled-components";
 import { CharacterSheetType } from '../../types';
-import { SelectedPlayerContext } from '../../SelectedPlayerContext';
+import { SelectedPlayerContext } from '../../store/selected-character-context';
 
 
 

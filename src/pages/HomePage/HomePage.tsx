@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CharacterSheetType } from "../../types";
 import { getAllCharacters} from '../../service/http';
-import { SelectedPlayerContext } from "../../SelectedPlayerContext";
+import { SelectedPlayerContext } from "../../store/selected-character-context";
 
 const Home = () => {
 
     const [characters, setCharacters] = useState<CharacterSheetType[]>();
-    const [selectedCharacter, setSelectedCharacter] = useState<CharacterSheetType>();
-
-    
+    const selectedCharacterContext = useContext(SelectedPlayerContext)
 
     useEffect(():void  => {
         getAllCharacters()
@@ -17,23 +15,22 @@ const Home = () => {
     },[])
 
     function handleCharacterChoice(character: CharacterSheetType) {
-        setSelectedCharacter(character);
-        
-        
+        selectedCharacterContext.changeSelectedPlayer(character);
     }
 
-    function startBattle() {
-       
-    }
+    // function startBattle() {
+    //
+    // }
 
     return (
-        <>
+        <div>
             <h1>Welcome to Evercraft!</h1>
             <h2>Select Your Character</h2>
-            {characters && characters.map((character) => <button onClick={event => handleCharacterChoice(character)} >{character.name}</button> )}
-            <h3>Selected Character: {selectedCharacter?.name}</h3>
-            <button onClick={() => startBattle()}>LETS BATTLE</button>
-        </>
+            {characters && characters.map((character) => 
+                <button onClick={() => handleCharacterChoice(character)} >{character.name}</button> )}
+            <h3>Selected Character: {selectedCharacterContext?.selectedPlayer.name}</h3>
+            <button onClick={() => {}}>LETS BATTLE</button>
+        </div>
     );
 }
 

@@ -3,21 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Battle from './pages/Battle/Battle';
 import CharacterPage from './pages/CharacterPage/CharacterPage';
 import Home from './pages/HomePage/HomePage';
-import { SelectedPlayerContext } from './SelectedPlayerContext';
-import { useState } from 'react';
+import SelectedPlayerContextProvider from './store/selected-character-context';
 import { CharacterSheetType } from './types';
-import { characterPlaceholder } from './placeholders/characterPlaceholder';
 
+type Actions = {type: "select"; value: CharacterSheetType}
 
 function App() {
-  const [player, setPlayer] = useState<CharacterSheetType>(characterPlaceholder);
-  
-  function playerHandler(selectedCharacter: CharacterSheetType) {
-    setPlayer(selectedCharacter);
-  }
-  
+
   return (
-    <SelectedPlayerContext.Provider value={player}>
+    <SelectedPlayerContextProvider >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -26,8 +20,19 @@ function App() {
           <Route path='/character' element={<CharacterPage />} />
         </Routes>
       </BrowserRouter>
-    </SelectedPlayerContext.Provider>
+    </SelectedPlayerContextProvider>
   );
+}
+
+function selectPlayerReducer(playerSelection: CharacterSheetType, action: Actions): CharacterSheetType {
+  switch (action.type) {
+    case 'select': {
+      return playerSelection;
+    }
+    default: {
+      return {};
+    }
+  }
 }
 
 export default App;
