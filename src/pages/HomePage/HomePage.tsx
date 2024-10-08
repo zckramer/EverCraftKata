@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { CharacterSheetType } from "../../types";
 import { getAllCharacters} from '../../service/http';
+import { SelectedPlayerContext } from "../../SelectedPlayerContext";
 
 const Home = () => {
 
     const [characters, setCharacters] = useState<CharacterSheetType[]>();
     const [selectedCharacter, setSelectedCharacter] = useState<CharacterSheetType>();
+
     
 
     useEffect(():void  => {
@@ -16,10 +18,11 @@ const Home = () => {
 
     function handleCharacterChoice(character: CharacterSheetType) {
         setSelectedCharacter(character);
+        
     }
 
     function startBattle() {
-        
+       
     }
 
     return (

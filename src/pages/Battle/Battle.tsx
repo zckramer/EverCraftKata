@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
-import { getCharacterSheetById} from '../../service/http';
+import { useContext, useEffect, useState } from 'react';
 import { characterPlaceholder } from '../../placeholders/characterPlaceholder';
 import Character from '../../components/Character';
 import styled from "styled-components";
 import { CharacterSheetType } from '../../types';
+import { SelectedPlayerContext } from '../../SelectedPlayerContext';
+
+
+
 
 const BattleField = styled.div`
     display: flex;
@@ -11,12 +14,15 @@ const BattleField = styled.div`
     justify-content: space-evenly;
 `;
 
-const Battle = (playerCharacter: CharacterSheetType) => {
+const Battle = () => {
     
 
-    const [player, setPlayer] = useState<CharacterSheetType>(characterPlaceholder);
-    const [opponent, setOpponent] = useState<CharacterSheetType>(characterPlaceholder);
+    const [player, setPlayer] = useState<CharacterSheetType>();
+    const [opponent, setOpponent] = useState<CharacterSheetType>();
     const [isBattleLoaded, setIsBattleLoaded] = useState<Boolean>(false);
+
+    const playerCharacter = useContext(SelectedPlayerContext);
+
     
     useEffect(():void => {
         if(!isBattleLoaded) {
