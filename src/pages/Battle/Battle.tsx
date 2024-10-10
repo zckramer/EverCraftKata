@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { characterPlaceholder } from '../../placeholders/characterPlaceholder';
 import Character from '../../components/Character';
 import styled from "styled-components";
 import { CharacterSheetType } from '../../types';
@@ -27,10 +26,8 @@ const Battle = () => {
     useEffect(():void => {
         if(!isBattleLoaded) {
             async function battleData() {
-                // const getPlayerCharacter = await getCharacterSheetById(2);
-                // const getOpponentCharacter = await getCharacterSheetById(3);
-                setPlayer(playerCharacter);
-                setOpponent(playerCharacter);
+                setPlayer(playerCharacter.selectedPlayer);
+                setOpponent(playerCharacter.selectedOpponent);
                 setIsBattleLoaded(true);
             }
             battleData();
